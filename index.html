@@ -32,6 +32,16 @@
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
 
+      function isMobileDevice() {
+        if (navigator.userAgentData) {
+          // Check for mobile device using userAgentData
+          return navigator.userAgentData.mobile;
+        } else {
+          // Fallback to userAgent check
+          return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        }
+      }
+
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
       // If type=='warning', a yellow highlight color is used.
@@ -113,16 +123,7 @@
 
         canvas.style.width = `${canvasWidth}px`;
         canvas.style.height = `${canvasHeight}px`;
-      }
-
-      function isMobileDevice() {
-        if (navigator.userAgentData) {
-          // Check for mobile device using userAgentData
-          return navigator.userAgentData.mobile;
-        } else {
-          // Fallback to userAgent check
-          return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        }
+      }   
 
       loadingBar.style.display = "block";
 
