@@ -76,7 +76,7 @@
       // the canvas DOM size and WebGL render target sizes yourself.
       // config.matchWebGLToCanvasSize = false;
 
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      if (isMobileDevice()) {
         // Mobile device style: fill the whole browser client area with the game canvas:
 
         var meta = document.createElement('meta');
@@ -97,9 +97,9 @@
         //canvas.style.width = "600px";
         //canvas.style.height = "960px";
 
+        const aspectRatio = 9 / 16;
         const windowHeight = window.innerHeight;
         const windowWidth = window.innerWidth;
-        const aspectRatio = windowWidth / windowHeight;      
 
         let canvasHeight, canvasWidth;
 
@@ -114,6 +114,15 @@
         canvas.style.width = `${canvasWidth}px`;
         canvas.style.height = `${canvasHeight}px`;
       }
+
+      function isMobileDevice() {
+        if (navigator.userAgentData) {
+          // Check for mobile device using userAgentData
+          return navigator.userAgentData.mobile;
+        } else {
+          // Fallback to userAgent check
+          return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        }
 
       loadingBar.style.display = "block";
 
