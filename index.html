@@ -94,8 +94,25 @@
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-        canvas.style.width = "600px";
-        canvas.style.height = "960px";
+        //canvas.style.width = "600px";
+        //canvas.style.height = "960px";
+
+        const aspectRatio = 9 / 16;
+        const windowHeight = window.innerHeight;
+        const windowWidth = window.innerWidth;
+
+        let canvasHeight, canvasWidth;
+
+        if (windowWidth / windowHeight < aspectRatio) {
+          canvasWidth = windowWidth;
+          canvasHeight = windowWidth / aspectRatio;
+        } else {
+          canvasHeight = windowHeight;
+          canvasWidth = windowHeight * aspectRatio;
+        }
+
+        canvas.style.width = `${canvasWidth}px`;
+        canvas.style.height = `${canvasHeight}px`;
       }
 
       loadingBar.style.display = "block";
@@ -107,9 +124,9 @@
           progressBarFull.style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 loadingBar.style.display = "none";
-                fullscreenButton.onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
+                // fullscreenButton.onclick = () => {
+                //   unityInstance.SetFullscreen(1);
+                // };
               }).catch((message) => {
                 alert(message);
               });
